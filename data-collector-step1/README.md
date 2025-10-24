@@ -31,8 +31,8 @@ npm install
 ```
 PORT=8080
 TARGET_URL=https://jsonplaceholder.typicode.com/posts
-<!-- 위 TARGET_URL은 동작 확인용 테스트 주소입니다. -->
 ```
+위 TARGET_URL은 동작 확인용 테스트 주소입니다
 
 ### 3. 실행
 
@@ -59,6 +59,7 @@ http://localhost:8080/collect
   }
 }
 ```
+아래 학습 내용에서 ok 값 관련 내용 확인 가능합니다.
 
 ---
 
