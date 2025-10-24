@@ -65,7 +65,52 @@ http://localhost:8080/collect
 ## 학습내용
 
 - ChatGPT를 활용하여 서버의 요청-응답 흐름을 직접 타이핑하며 이해
+
 - 에러를 의도적으로 발생시켜 catch 문이 어떻게 작동하는지 확인
+
+1. .env파일에서 TARGET_URL을 일부러 잘못써서 오류 발생시키기(ENOTFOUND)
+
+```
+TARGET_URL=https://jsonplaceholder.typicodee.com/posts
+```
+
+2. collector.js는 에러를 catch했지만 throw 하지 않았기 때문에
+
+```javaScript
+ try {
+    const res = await axios.get(target, { timeout: 10000 });
+    const data = res.data;
+    size = JSON.stringify(data).length;
+  } catch (e) {
+  //target(TARGET_URL)주소 에러로 정보를 받아올 수 없어 catch문 실행
+    status = "fail";
+    error = e.message;
+  }
+```
+
+3. server.js에서는 오류가 아닌 “정상 응답”으로 처리됨 → ok: true
+
+```javaScript
+//server.js
+app.get("/collect", async (_req, res) => {
+  try { // 실행
+    const result = await collectOnce();
+    res.json({ ok: true, result });
+  } catch (err) { //
+    res.status(500).json({ ok: false, error: err.message });
+  }
+});
+
+// 서버 실행 후 http://localhost:8080/collect 확인 결과
+{
+  "ok": true,
+  "result": {
+    "status": "fail",
+    "error": "getaddrinfo ENOTFOUND ..."
+  }
+}
+```
+
 - try / catch의 구조와 에러 전파 개념 학습
 - Step 2에서는 Tor 네트워크 및 로그 기록 기능을 추가할 예정
 
