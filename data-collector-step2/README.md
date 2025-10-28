@@ -21,40 +21,41 @@
 
 ### 1. 환경설정(.env)
 
-```
+Tor 브라우저(또는 tor 데몬)을 실행해야함
+``` 
 PORT=8080
 TARGET_URL=https://jsonplaceholder.typicode.com/posts
-USE_TOR=true   # Tor 경유 테스트 시 true. Tor 브라우저(또는 tor 데몬)를 실행해야 함.
+USE_TOR=true   
 ```
 
-#### tor 프록시 포트 확인 방법(cmd/PowerShell)
-
-- tor브라우저 접속
-
 ```bash
+tor 프록시 포트 확인 방법
+1. tor 브라우저 실행 후 접속
+2. cmd 또는 PowerShell에서 아래 커맨드라인 입력
+
 # try 9150 first
 curl --socks5-hostname 127.0.0.1:9150 https://check.torproject.org -I
 
 # if fails, try 9050
 curl --socks5-hostname 127.0.0.1:9050 https://check.torproject.org -I
-```
 
-- 응답 성공 : 헤더 표시
-- 응답 실패 : 에러 발생
+응답 성공 : 헤더 표시, 응답 실패 : 에러 발생
+```
 
 ### 2. 테스트
 
-npm start후 브라우저 또는 터미널에서 아래 주소로 요청을 보냅니다
+``` bash
+npm start
+```
 
-```bash
+``` bash
 http://localhost:8080/collect
 ```
 
 ### 응답 예시
 
-- 성공
-
 ```json
+성공
 {
   "ok": true,
   "result": {
@@ -66,14 +67,13 @@ http://localhost:8080/collect
     "error": null
   }
 }
-```
 
-- 실패
-  {
+실패
+{
   "ok": false,
   "error": "수집 실패: connect ECONNREFUSED 127.0.0.1:9150"
   }
-
+```  
 ### logs/collector.log 예시
 
 ```
