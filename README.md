@@ -25,15 +25,15 @@
 
 ## ⚙️ 기술 스택
 
-| 구분 | 사용 기술 |
-| --- | --- |
-| **Backend** | Node.js, Express |
-| **Scheduler** | Apache Airflow |
-| **Storage / Search** | Elasticsearch |
-| **Visualization** | Grafana |
-| **Automation / Alerting** | Slack Webhook, Jira API |
-| **Networking** | Tor Network (데이터 수집 우회) |
-| **Frontend** | Chart.js (기본 대시보드 UI) |
+| 구분                      | 사용 기술                      |
+| ------------------------- | ------------------------------ |
+| **Backend**               | Node.js, Express               |
+| **Scheduler**             | Apache Airflow                 |
+| **Storage / Search**      | Elasticsearch                  |
+| **Visualization**         | Grafana                        |
+| **Automation / Alerting** | Slack Webhook, Jira API        |
+| **Networking**            | Tor Network (데이터 수집 우회) |
+| **Frontend**              | Chart.js (기본 대시보드 UI)    |
 
 ---
 
@@ -56,14 +56,14 @@
 
 ## 📦 주요 기능
 
-| 기능 | 설명 |
-| --- | --- |
+| 기능                          | 설명                                                                |
+| ----------------------------- | ------------------------------------------------------------------- |
 | **데이터 수집기 (Collector)** | Node.js + Express 기반 REST API (`/collect`, `/status`, `/metrics`) |
-| **Tor 네트워크 연동** | 민감한 사이트나 차단된 URL도 프록시를 통해 안전하게 수집 |
-| **Elasticsearch 저장소** | 수집 로그(성공/실패/응답속도 등)를 구조화해 저장 |
-| **Grafana 대시보드** | Elasticsearch 데이터를 시각화하여 성공률/지연시간 모니터링 |
-| **Airflow 스케줄러** | 5분 단위로 Collector API를 자동 호출 |
-| **Slack / Jira 자동화** | 실패율이 임계치(예: 20%) 이상이면 Slack 알림 + Jira 이슈 자동 생성 |
+| **Tor 네트워크 연동**         | 민감한 사이트나 차단된 URL도 프록시를 통해 안전하게 수집            |
+| **Elasticsearch 저장소**      | 수집 로그(성공/실패/응답속도 등)를 구조화해 저장                    |
+| **Grafana 대시보드**          | Elasticsearch 데이터를 시각화하여 성공률/지연시간 모니터링          |
+| **Airflow 스케줄러**          | 5분 단위로 Collector API를 자동 호출                                |
+| **Slack / Jira 자동화**       | 실패율이 임계치(예: 20%) 이상이면 Slack 알림 + Jira 이슈 자동 생성  |
 
 ---
 
@@ -117,12 +117,12 @@ JIRA_PROJECT_KEY=DATA
 
 ## 📊 Grafana 패널 구성
 
-| 패널 | 설명 |
-| --- | --- |
-| **Fail Rate (%)** | 최근 15분 간 실패 비율 |
-| **Latency p95** | 응답 시간의 95퍼센타일 |
-| **Status Donut** | 성공 / 실패 비율 시각화 |
-| **Throughput** | 수집 요청 빈도 (per minute) |
+| 패널              | 설명                        |
+| ----------------- | --------------------------- |
+| **Fail Rate (%)** | 최근 15분 간 실패 비율      |
+| **Latency p95**   | 응답 시간의 95퍼센타일      |
+| **Status Donut**  | 성공 / 실패 비율 시각화     |
+| **Throughput**    | 수집 요청 빈도 (per minute) |
 
 ---
 
@@ -141,8 +141,8 @@ python_callable=call_collect      # REST API 요청 함수
 
 - `/metrics` API에서 실패율 계산
 - 실패율 20% 이상이면:
-    - Slack 채널에 경고 메시지 전송
-    - Jira 프로젝트(`DATA`)에 자동 버그 이슈 생성
+  - Slack 채널에 경고 메시지 전송
+  - Jira 프로젝트(`DATA`)에 자동 버그 이슈 생성
 
 ---
 
@@ -158,13 +158,13 @@ python_callable=call_collect      # REST API 요청 함수
 
 ## 🧭 단계별 로드맵
 
-| 단계 | 목표 | 핵심 포인트 | 완료 |
-| --- | --- | --- | --- |
-| **Step 1** | **Node.js 서버 + `/collect` 기본 동작** | Express 서버 구축, 공공 API 데이터 수집, 응답 시간/결과 반환 | 2025년 10월 23일 |
-| **Step 2** | **Tor 연동 + 로그 저장** | SOCKS 프록시로 Tor 라우팅, 성공/실패 로그 파일 기록 |  |
-| **Step 3** | **Elasticsearch 저장 + `/status` API** | 수집 결과 ES에 인덱싱, 최근 데이터 조회 API 구현 |  |
-| **Step 4** | **Grafana 대시보드 구축** | ES 데이터 시각화 (성공률·지연 그래프) 패널 구성 |  |
-| **Step 5** | **Slack + Jira 자동화** | 실패율 임계치 감지 → Slack 알림 + Jira 이슈 자동 생성 |  |
-| **Step 6** | **Airflow 주기 실행 + 운영 스크립트 완성** | Airflow DAG 작성, 5분 주기 Collector API 자동 호출 |  |
+| 단계       | 목표                                       | 핵심 포인트                                                  | 완료             |
+| ---------- | ------------------------------------------ | ------------------------------------------------------------ | ---------------- |
+| **Step 1** | **Node.js 서버 + `/collect` 기본 동작**    | Express 서버 구축, 공공 API 데이터 수집, 응답 시간/결과 반환 | 2025년 10월 23일 |
+| **Step 2** | **Tor 연동 + 로그 저장**                   | SOCKS 프록시로 Tor 라우팅, 성공/실패 로그 파일 기록          | 2025년 10월 28일 |
+| **Step 3** | **Elasticsearch 저장 + `/status` API**     | 수집 결과 ES에 인덱싱, 최근 데이터 조회 API 구현             |                  |
+| **Step 4** | **Grafana 대시보드 구축**                  | ES 데이터 시각화 (성공률·지연 그래프) 패널 구성              |                  |
+| **Step 5** | **Slack + Jira 자동화**                    | 실패율 임계치 감지 → Slack 알림 + Jira 이슈 자동 생성        |                  |
+| **Step 6** | **Airflow 주기 실행 + 운영 스크립트 완성** | Airflow DAG 작성, 5분 주기 Collector API 자동 호출           |                  |
 
 ---
