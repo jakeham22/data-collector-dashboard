@@ -1,5 +1,3 @@
-// Step2 : Tor 연동 + 로그 파일 저장 + 서버로 에러 전달
-
 import axios from "axios";
 import fs from "fs";
 import { SocksProxyAgent } from "socks-proxy-agent";
@@ -59,7 +57,15 @@ export async function collectOnce() {
   } finally {
     // 수집 결과 로그 파일 기록
     const responseTime = Date.now() - startedAt;
-    const logEntry = `[${new Date().toISOString()}] status=${status} time=${responseTime}ms size=${size} target=${target}`;
+
+    /* UTC → 한국 시간 변환
+    [2025-10-29T03:24:59.766Z] "Z" : UTC(협정 세계 시각) / 한국 : UTC+9
+    */
+    function getKoreanTime() {
+      return new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
+    }
+
+    const logEntry = `[${getKoreanTime()}] status=${status} time=${responseTime}ms size=${size} target=${target}`;
     logToFile(logEntry);
   }
 

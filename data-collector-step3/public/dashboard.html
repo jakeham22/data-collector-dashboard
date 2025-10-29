@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Collector Dashboard</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #f9f9f9;
+        padding: 2rem;
+      }
+      #logs {
+        background: whtie;
+        border: 1px solid #ddd;
+        padding: 1rem;
+        height: 400px;
+        overflow-y: auto;
+      }
+      h2 {
+        color: #444;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>실시간 수집 로그</h2>
+    <div id="logs"></div>
+
+    <script>
+      const logsDiv = document.getElementById("logs");
+      const evtSource = new EventSource("/stream");
+
+      evtSource.onmessage = (event) => {
+        const p = document.createElement("p");
+
+        p.textContent = event.data;
+        logsDiv.appendChild(p);
+        logsDiv.scrollTop = logsDiv.scrollHeight; // 자동 스크롤
+      };
+    </script>
+  </body>
+</html>

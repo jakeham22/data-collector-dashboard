@@ -22,10 +22,11 @@
 ### 1. 환경설정(.env)
 
 Tor 브라우저(또는 tor 데몬)을 실행해야함
-``` 
+
+```
 PORT=8080
 TARGET_URL=https://jsonplaceholder.typicode.com/posts
-USE_TOR=true   
+USE_TOR=true
 ```
 
 ```bash
@@ -44,11 +45,11 @@ curl --socks5-hostname 127.0.0.1:9050 https://check.torproject.org -I
 
 ### 2. 테스트
 
-``` bash
+```bash
 npm start
 ```
 
-``` bash
+```bash
 http://localhost:8080/collect
 ```
 
@@ -73,7 +74,8 @@ http://localhost:8080/collect
   "ok": false,
   "error": "수집 실패: connect ECONNREFUSED 127.0.0.1:9150"
   }
-```  
+```
+
 ### logs/collector.log 예시
 
 ```
