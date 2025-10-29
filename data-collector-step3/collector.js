@@ -14,6 +14,13 @@ function logToFile(entry) {
   fs.appendFileSync(`${logDir}/collector.log`, entry + "\n");
 }
 
+/* UTC → 한국 시간 변환
+[2025-10-29T03:24:59.766Z] "Z" : UTC(협정 세계 시각) / 한국 : UTC+9
+*/
+function getKoreanTime() {
+  return new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
+}
+
 // 실제 수집 작업 수행 함수
 export async function collectOnce() {
   const startedAt = Date.now();
@@ -57,13 +64,6 @@ export async function collectOnce() {
   } finally {
     // 수집 결과 로그 파일 기록
     const responseTime = Date.now() - startedAt;
-
-    /* UTC → 한국 시간 변환
-    [2025-10-29T03:24:59.766Z] "Z" : UTC(협정 세계 시각) / 한국 : UTC+9
-    */
-    function getKoreanTime() {
-      return new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
-    }
 
     const logEntry = `[${getKoreanTime()}] status=${status} time=${responseTime}ms size=${size} target=${target}`;
     logToFile(logEntry);

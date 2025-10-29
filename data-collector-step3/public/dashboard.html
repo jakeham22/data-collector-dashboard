@@ -2,41 +2,26 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Collector Dashboard</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        background: #f9f9f9;
-        padding: 2rem;
-      }
-      #logs {
-        background: whtie;
-        border: 1px solid #ddd;
-        padding: 1rem;
-        height: 400px;
-        overflow-y: auto;
-      }
-      h2 {
-        color: #444;
-      }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h2>실시간 수집 로그</h2>
+    <h2>📊 Data Collector Dashboard</h2>
+    <div class="charts">
+      <div>
+        <h3>응답 시간 추이 (ms)</h3>
+        <canvas id="responseChart" width="400" height="200"></canvas>
+      </div>
+      <div>
+        <h3>성공/실패 비율</h3>
+        <canvas id="statusChart" width="300" height="200"></canvas>
+      </div>
+    </div>
+
+    <h3>📡 실시간 로그</h3>
     <div id="logs"></div>
 
-    <script>
-      const logsDiv = document.getElementById("logs");
-      const evtSource = new EventSource("/stream");
-
-      evtSource.onmessage = (event) => {
-        const p = document.createElement("p");
-
-        p.textContent = event.data;
-        logsDiv.appendChild(p);
-        logsDiv.scrollTop = logsDiv.scrollHeight; // 자동 스크롤
-      };
-    </script>
+    <script src="./logAndChart.js"></script>
   </body>
 </html>
